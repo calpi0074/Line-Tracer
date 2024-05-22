@@ -1,0 +1,69 @@
+//라이브러리 설치
+#include <AFMotor.h>
+
+// 모터 핀 설정
+AF_DCMotor motor1 (1);
+AF_DCMotor motor2 (2);
+AF_DCMotor motor3 (3);
+AF_DCMotor motor4 (4);
+
+//모터 속도 설정
+int speed = 50;
+
+void setup() {
+  // 모터 핀을 출력으로 설정
+  pinMode(leftMotor1, OUTPUT);
+  pinMode(leftMotor2, OUTPUT);
+  pinMode(rightMotor1, OUTPUT);
+  pinMode(rightMotor2, OUTPUT);
+  
+}
+
+void loop() {
+  Serial.begin(9600);
+  moveForward();
+}
+
+// 장애물 회피 함수
+void avoidObstacle() {
+  digitalWrite(leftMotor1, HIGH);
+  digitalWrite(leftMotor2, LOW);
+  digitalWrite(rightMotor1, LOW);
+  digitalWrite(rightMotor2, HIGH);
+  delay(1000); // 회전 시간 1초 
+}
+
+// 전진 함수
+void moveForward() {
+  digitalWrite(leftMotor1, speed);
+  digitalWrite(leftMotor2, 0);
+  digitalWrite(rightMotor1, speed);
+  digitalWrite(rightMotor2, 0);
+  delay(100);
+}
+
+// 우회전 함수
+void turnRight() {
+  digitalWrite(leftMotor1, speed);
+  digitalWrite(leftMotor2, 0);
+  digitalWrite(rightMotor1, 0);
+  digitalWrite(rightMotor2, 0);
+  delay(100);
+}
+
+// 좌회전 함수
+void turnLeft() {
+  digitalWrite(leftMotor1, 0);
+  digitalWrite(leftMotor2, 0);
+  digitalWrite(rightMotor1, speed);
+  digitalWrite(rightMotor2, 0);
+  delay(100);
+}
+
+// 정지 함수
+void stopMoving() {
+  digitalWrite(leftMotor1, LOW);
+  digitalWrite(leftMotor2, LOW);
+  digitalWrite(rightMotor1, LOW);
+  digitalWrite(rightMotor2, LOW);
+}
